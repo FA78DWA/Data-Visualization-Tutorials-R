@@ -1,6 +1,9 @@
 1- load the library, and the diamonds dataset
 =============================================
 
+Note that ggplot works in layers, meaning that we can plot the data and put different \#\# layers on top of the plot. This is done by using the (+) sign
+--------------------------------------------------------------------------------------------------------------------------------------------------------
+
 ``` r
 library(ggplot2)
 data("diamonds")
@@ -38,11 +41,52 @@ ggplot(diamonds, aes(x=carat, y=price, color=clarity)) + geom_point() + ggtitle(
 
 ![](diamonds_ggplot_files/figure-markdown_github/unnamed-chunk-3-1.png)
 
-What about the "cut", can we add it too...Yes by the point shape :D
--------------------------------------------------------------------
+What about the "cut", can we add it too...Yes by the point shape
+----------------------------------------------------------------
 
 ``` r
 ggplot(diamonds, aes(x=carat, y=price, color=clarity, shape=cut)) + geom_point() + ggtitle("Scatter plot") + xlab("carat (weight)") 
 ```
 
 ![](diamonds_ggplot_files/figure-markdown_github/unnamed-chunk-4-1.png)
+
+Or the point size, but as we can see, its not a good idea for this dense data
+-----------------------------------------------------------------------------
+
+``` r
+ggplot(diamonds, aes(x=carat, y=price, color=clarity, size=cut)) + geom_point() + ggtitle("Scatter plot") + xlab("carat (weight)") 
+```
+
+    ## Warning: Using size for a discrete variable is not advised.
+
+![](diamonds_ggplot_files/figure-markdown_github/unnamed-chunk-5-1.png)
+
+We can add a smooth curve (additional layer) to show the general trend of the data. \#\# Don't forget that we do this by the (+) sign.
+--------------------------------------------------------------------------------------------------------------------------------------
+
+``` r
+# the gray area around the curve is the confidence interval. To turn it off we can turn off the standard error option in geo_smooth.
+ggplot(diamonds, aes(x=carat, y=price)) + geom_point() + geom_smooth() 
+```
+
+    ## `geom_smooth()` using method = 'gam'
+
+![](diamonds_ggplot_files/figure-markdown_github/unnamed-chunk-6-1.png)
+
+``` r
+# Remove the confidence area around the curve
+ggplot(diamonds, aes(x=carat, y=price)) + geom_point() + geom_smooth(se=FALSE) 
+```
+
+    ## `geom_smooth()` using method = 'gam'
+
+![](diamonds_ggplot_files/figure-markdown_github/unnamed-chunk-7-1.png)
+
+We also can add the best fit line for that data, by changing the method that geom\_smooth is using.
+---------------------------------------------------------------------------------------------------
+
+``` r
+ggplot(diamonds, aes(x=carat, y=price)) + geom_point() + geom_smooth(se=FALSE, method=lm) 
+```
+
+![](diamonds_ggplot_files/figure-markdown_github/unnamed-chunk-8-1.png)
