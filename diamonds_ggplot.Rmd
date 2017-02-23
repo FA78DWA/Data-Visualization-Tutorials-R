@@ -23,7 +23,8 @@ ggplot(diamonds, aes(x=carat, y=price)) + geom_point()
 ggplot(diamonds, aes(x=carat, y=price)) + geom_point() + ggtitle("My Scatter plot") + xlab("carat (weight)") + theme(plot.title = element_text(hjust = 0.5))
 ```
 
-## To add a limit for x-axis and y-axis use "xlim(), ylim()" layers. For exapmle, limit x(carat) between 0,2 and y(price) between 0, 10000$
+## To add a limit for x-axis and y-axis use "xlim(), ylim()" layers. 
+### For exapmle, limit x(carat) between 0,2 and y(price) between 0, 10000$
 ```{r}
 #Note that this action can cause data loss in the plot
 ggplot(diamonds, aes(x=carat, y=price)) + geom_point() + xlab("carat (weight)") + xlim(0,2) + ylim(0,10000) 

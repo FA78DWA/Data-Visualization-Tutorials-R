@@ -39,8 +39,10 @@ ggplot(diamonds, aes(x=carat, y=price)) + geom_point() + ggtitle("My Scatter plo
 
 ![](diamonds_ggplot_files/figure-markdown_github/unnamed-chunk-3-1.png)
 
-To add a limit for x-axis and y-axis use "xlim(), ylim()" layers. For exapmle, limit x(carat) between 0,2 and y(price) between 0, 10000$
-----------------------------------------------------------------------------------------------------------------------------------------
+To add a limit for x-axis and y-axis use "xlim(), ylim()" layers.
+-----------------------------------------------------------------
+
+### For exapmle, limit x(carat) between 0,2 and y(price) between 0, 10000$
 
 ``` r
 #Note that this action can cause data loss in the plot
