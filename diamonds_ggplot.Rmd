@@ -33,7 +33,7 @@ ggplot(diamonds, aes(x=carat, y=price, color=clarity, shape=cut)) + geom_point()
 ggplot(diamonds, aes(x=carat, y=price, color=clarity, size=cut)) + geom_point() + ggtitle("Scatter plot") + xlab("carat (weight)") 
 ```
 
-## We can add a smooth curve (additional layer) to show the general trend of the data. ## Don't forget that we do this by the (+) sign.
+## We can add a smooth curve (additional layer) to show the general trend of the data. Don't forget, we do this by the (+) sign.
 ```{r}
 # the gray area around the curve is the confidence interval. To turn it off we can turn off the standard error option in geo_smooth.
 ggplot(diamonds, aes(x=carat, y=price)) + geom_point() + geom_smooth() 
