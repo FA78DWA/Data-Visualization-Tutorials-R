@@ -20,38 +20,6 @@ head(diamonds)
     ## 5  0.31      Good     J     SI2  63.3    58   335  4.34  4.35  2.75
     ## 6  0.24 Very Good     J    VVS2  62.8    57   336  3.94  3.96  2.48
 
-kable(head(diamonds\[,1:3\])) \#\# Diamonds dataset Format: A data frame with 53940 rows and 10 variables:
-
-price: \#\#price in US dollars ($326-$18,823)
----------------------------------------------
-
-carat: weight of the diamond (0.2-5.01)
----------------------------------------
-
-cut: quality of the cut (Fair, Good, Very Good, Premium, Ideal)
----------------------------------------------------------------
-
-color: diamond colour, from J (worst) to D (best)
--------------------------------------------------
-
-clarity: a measurement of how clear the diamond is (I1 (worst), SI1, SI2, VS1, VS2, VVS1, VVS2, IF (best))
-----------------------------------------------------------------------------------------------------------
-
-x: length in mm (0-10.74)
--------------------------
-
-y: width in mm (0-58.9)
------------------------
-
-z: depth in mm (0-31.8)
------------------------
-
-depth: total depth percentage = z / mean(x, y) = 2 \* z / (x + y) (43-79)
--------------------------------------------------------------------------
-
-table: width of top of diamond relative to widest point (43-95)
----------------------------------------------------------------
-
 2- Scatter Plot
 ===============
 
@@ -173,11 +141,38 @@ ggplot(diamonds, aes(x=carat, y=price, color = clarity)) + geom_point()
 
 ![](diamonds_ggplot_files/figure-markdown_github/unnamed-chunk-13-1.png)
 
-We can divide it into smaller scatter plots in terms of "clarity" by adding the "facet\_wrap()" layer, and specifiny the feature that we want to use to divide the plot, in this case "~clarityS"
--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+We can divide it into smaller scatter plots in terms of "clarity" by adding the "facet\_wrap()" layer, and specifiny the feature that we want to use to divide the plot, in this case "~clarityS". Note that, clarity is a measurement of how clear the diamond is (I1 (worst), SI1, SI2, VS1, VS2, VVS1, VVS2, IF (best))
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 ``` r
 ggplot(diamonds, aes(x=carat, y=price)) + geom_point() + facet_wrap(~clarity) 
 ```
 
 ![](diamonds_ggplot_files/figure-markdown_github/unnamed-chunk-14-1.png)
+
+We can also use scatter plot "color", to visualize an additional feature. For example, the diamond color "color" , from J (worst) to D (best). Don't get confused between the two "color", one is the plot method, and the other is just a feature from the dataset.
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+``` r
+ggplot(diamonds, aes(x=carat, y=price, color=color)) + geom_point() + facet_wrap(~clarity)
+```
+
+![](diamonds_ggplot_files/figure-markdown_github/unnamed-chunk-15-1.png)
+
+What if we want to DIVIDE the big plot into smaller one using two features(clarity & color) instead of one(color only). Use facet\_grid(color~clarity). "color~clarity" means color explaned by clarity.
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+``` r
+ggplot(diamonds, aes(x=carat, y=price)) + geom_point() + facet_grid(color~clarity)
+```
+
+![](diamonds_ggplot_files/figure-markdown_github/unnamed-chunk-16-1.png)
+
+We can also add the "cut" feature to this mega plot, do you know how....Yes, use color, or shape, or size for the scattered points. We will use "color". Note, this plot has "carat" on the x-axis, "price" on the y-axis, has 8\*7 subplots to specify the different "clarities" and "colors", also has a colored points to see the different "cuts". 5 Features in one plot. Amazing ha.
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+``` r
+ggplot(diamonds, aes(x=carat, y=price, color=cut)) + geom_point() + facet_grid(color~clarity)
+```
+
+![](diamonds_ggplot_files/figure-markdown_github/unnamed-chunk-17-1.png)
