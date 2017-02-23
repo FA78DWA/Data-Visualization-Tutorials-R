@@ -113,77 +113,89 @@ Faceting is to divide the plot into smaller ones wrt some attribute/feature. Bac
 ggplot(diamonds, aes(x=carat, y=price, color = clarity)) + geom_point() + ggtitle("The original Scatter plot") + theme(plot.title = element_text(hjust = 0.5))
 ```
 
-## We can divide it into smaller scatter plots in terms of "clarity" by adding the "facet_wrap()" layer, and specifiny the feature that we want to use to divide the plot, in this case "~clarity". 
-Note that, clarity is a measurement of how clear the diamond is (I1 (worst), SI1, SI2, VS1, VS2, VVS1, VVS2, IF (best))
+## Divide with One Feature
+We can divide it into smaller scatter plots in terms of "clarity" by adding the "facet_wrap()" layer, and specifiny the feature that we want to use to divide the plot, in this case "~clarity". 
+**Note that, clarity is a measurement of how clear the diamond is (I1 (worst), SI1, SI2, VS1, VS2, VVS1, VVS2, IF (best))**
 ```{r}
 ggplot(diamonds, aes(x=carat, y=price)) + geom_point() + facet_wrap(~clarity) 
 ```
 
-## We can also use scatter plot "color", to visualize an additional feature. 
+## using "color"
+We can also use scatter plot **color**, to visualize an additional feature. 
 For example, the diamond color "color" , takes values from J (worst) to D (best).
 Don't get confused between the two "color", one is the plot method, and the other is just a feature from the dataset.
 ```{r}
 ggplot(diamonds, aes(x=carat, y=price, color=color)) + geom_point() + facet_wrap(~clarity)
 ```
 
-## What if we want to DIVIDE the big plot into smaller one using two features(clarity & color) instead of one(color only). Use facet_grid(color~clarity). "color~clarity" means color explaned by clarity.
+## Divide by two features (grid)
+What if we want to DIVIDE the big plot into smaller one using two features(clarity & color) instead of one(color only). Use facet_grid(color~clarity). "color~clarity" means color explaned by clarity.
 ```{r}
 ggplot(diamonds, aes(x=carat, y=price)) + geom_point() + facet_grid(color~clarity)
 ```
 
-## We can also add the "cut" feature to this mega plot, do you know how....Yes, use color, or shape, or size for the scattered points. We will use "color". 
+## Using "color"
+We can also add the "cut" feature to this mega plot, do you know how....Yes, use color, or shape, or size for the scattered points. We will use "color". 
 Note, this plot has "carat" on the x-axis, "price" on the y-axis, has 8*7 subplots to specify the different "clarities" and "colors", also has a colored points to see the different "cuts". 5 Features in one plot. Amazing ha.
 ```{r}
 #to center the title use: theme(plot.title = element_text(hjust = 0.5))
 ggplot(diamonds, aes(x=carat, y=price, color=cut)) + geom_point() + facet_grid(color~clarity)+ ggtitle("5 in 1 Plot") + theme(plot.title = element_text(hjust = 0.5))
 ```
 
-## Now we want to add a title for this plot by Using a title layer "ggtitle()".
+Now we want to add a title for this plot by Using a title layer "ggtitle()".
 ```{r}
 
 ggplot(diamonds, aes(x=carat, y=price, color=cut)) + geom_point() + facet_grid(color~clarity) 
 ```
 
 # 4- Histograms
-## We can plot a histogram for a single feature by adding "geom_histogram()" layer.
+## Simple Histogram
+We can plot a histogram for a single feature by adding "geom_histogram()" layer.
 ```{r}
 #plot a histogram for the price feature, where the x-axis is th proce and the y-axis is the frequency "the count"
 ggplot(diamonds, aes(x=price)) + geom_histogram()
 ```
 
-## control the bin width using "binwidth" inside the "geom_histogram"
+## Binwidth
+control the bin width using "binwidth" inside the "geom_histogram"
 ```{r}
 ggplot(diamonds, aes(x=price)) + geom_histogram(binwidth = 200 ) + ggtitle("Thinner bins") + theme(plot.title = element_text(hjust = 0.5))
 ```
 
 # 5- Using Faceting with Histograms
-## We can divide the big histogram the represents the whole data into smaller ones with respect to some feature, using "facet_wrap(~ feature_name)". 
+## Divide Histogram into smaller ones
+We can divide the big histogram the represents the whole data into smaller ones with respect to some feature, using "facet_wrap(~ feature_name)". 
 For example, we can divide the histogram above wrt "clarity"
 ```{r}
 ggplot(diamonds, aes(x=price)) + geom_histogram() + facet_wrap(~ clarity) + ggtitle("Divided by the diamond clarity") + theme(plot.title = element_text(hjust = 0.5)) 
 ```
 
-## You can see in the previous figure that the "I1" histogram count is not clear (top left one) because we use the same scale in the y-axis. To change that we can add "free_y" option into the "facet_wrap()" layer.
+## Free the y-axis
+You can see in the previous figure that the "I1" histogram count is not clear (top left one) because we use the same scale in the y-axis. To change that we can add "free_y" option into the "facet_wrap()" layer.
 ```{r}
 ggplot(diamonds, aes(x=price)) + geom_histogram() + facet_wrap(~ clarity, scale="free_y") + ggtitle("Free the scale of the y-axis") + theme(plot.title = element_text(hjust = 0.5))
 ```
 
-## Another cool thing to do is to make a STACK HISTOGRAM. we can fill the bins of the histogram with different colors to represent the distribution of other feature.
+## Stack Histogram
+Another cool thing to do is to make a STACK HISTOGRAM. we can fill the bins of the histogram with different colors to represent the distribution of other feature.
 ```{r}
 ggplot(diamonds, aes(x=price, fill=clarity)) + geom_histogram() + ggtitle("Fill the histogram wrt clarity") + theme(plot.title = element_text(hjust = 0.5))
 ```
 
-## We can get the density curve of the distribution by using "geom_density" layer instead of "geom_histogram"
+## Density Curves
+We can get the density curve of the distribution by using "geom_density" layer instead of "geom_histogram"
 ```{r}
 ggplot(diamonds, aes(x=price)) + geom_density() + ggtitle("The density Curve") + theme(plot.title = element_text(hjust = 0.5))
 ```
 
-## To compare multiple distributions wrt some feature, use "color=feature_name" in the "aes"
+### Compare different density curves
+To compare multiple distributions wrt some feature, use "color=feature_name" in the "aes"
 ```{r}
 ggplot(diamonds, aes(x=price, color=cut)) + geom_density() + ggtitle("Each curve represents different cut value") + theme(plot.title = element_text(hjust = 0.5))
 ```
  
-## we can also divide put each curve into a separate plot.
+### Split the different density curves
+we can also divide put each curve into a separate plot.
 ```{r}
 ggplot(diamonds, aes(x=price)) + geom_density() + facet_wrap(~ cut) + ggtitle("Each plot represents different cut value") + theme(plot.title = element_text(hjust = 0.5))
 ```
