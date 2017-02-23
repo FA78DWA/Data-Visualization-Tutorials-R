@@ -157,8 +157,8 @@ ggplot(diamonds, aes(x=carat, y=price, color=clarity)) + geom_smooth(se=FALSE, m
 
 ![](diamonds_ggplot_files/figure-markdown_github/unnamed-chunk-15-1.png)
 
-3- Using Faceting
-=================
+3- Using Faceting with Scatter plots
+====================================
 
 Faceting is to divide the plot into smaller ones wrt some attribute/feature. Back to the original scatter plot.
 ---------------------------------------------------------------------------------------------------------------
@@ -214,3 +214,84 @@ ggplot(diamonds, aes(x=carat, y=price, color=cut)) + geom_point() + facet_grid(c
 ```
 
 ![](diamonds_ggplot_files/figure-markdown_github/unnamed-chunk-21-1.png)
+
+4- Histogram
+------------
+
+We can plot a histogram for a single feature by adding "geom\_histogram()" layer.
+---------------------------------------------------------------------------------
+
+``` r
+#plot a histogram for the price feature, where the x-axis is th proce and the y-axis is the frequency "the count"
+ggplot(diamonds, aes(x=price)) + geom_histogram()
+```
+
+    ## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+
+![](diamonds_ggplot_files/figure-markdown_github/unnamed-chunk-22-1.png)
+
+control the bin width using "binwidth" inside the "geom\_histogram"
+-------------------------------------------------------------------
+
+``` r
+ggplot(diamonds, aes(x=price)) + geom_histogram(binwidth = 200 ) + ggtitle("Thinner bins") + theme(plot.title = element_text(hjust = 0.5))
+```
+
+![](diamonds_ggplot_files/figure-markdown_github/unnamed-chunk-23-1.png)
+
+4- Using Faceting with Histograms
+=================================
+
+We can divide the big histogram the represents the whole data into smaller ones with respect to some feature, using "facet\_wrap(~ feature\_name)". For example, we can divide the histogram above wrt "clarity"
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+``` r
+ggplot(diamonds, aes(x=price)) + geom_histogram() + facet_wrap(~ clarity) + ggtitle("Divided by the diamond clarity") + theme(plot.title = element_text(hjust = 0.5)) 
+```
+
+    ## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+
+![](diamonds_ggplot_files/figure-markdown_github/unnamed-chunk-24-1.png) \#\# You can see in the previous figure that the "I1" histogram count is not clear (top left one) because we use the same scale in the y-axis. To change that we can add "free\_y" option into the "facet\_wrap()" layer.
+
+``` r
+ggplot(diamonds, aes(x=price)) + geom_histogram() + facet_wrap(~ clarity, scale="free_y") + ggtitle("Free the scale of the y-axis") + theme(plot.title = element_text(hjust = 0.5))
+```
+
+    ## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+
+![](diamonds_ggplot_files/figure-markdown_github/unnamed-chunk-25-1.png)
+
+Another cool thing to do is to make a STACK HISTOGRAM. we can fill the bins of the histogram with different colors to represent the distribution of other feature.
+------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+``` r
+ggplot(diamonds, aes(x=price, fill=clarity)) + geom_histogram() + ggtitle("Fill the histogram wrt clarity") + theme(plot.title = element_text(hjust = 0.5))
+```
+
+    ## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+
+![](diamonds_ggplot_files/figure-markdown_github/unnamed-chunk-26-1.png)
+
+We can get the density curve of the distribution by using "geom\_density" layer instead of "geom\_histogram"
+------------------------------------------------------------------------------------------------------------
+
+``` r
+ggplot(diamonds, aes(x=price)) + geom_density() + ggtitle("The density Curve") + theme(plot.title = element_text(hjust = 0.5))
+```
+
+![](diamonds_ggplot_files/figure-markdown_github/unnamed-chunk-27-1.png)
+
+To compare multiple distributions wrt some feature, use "color=feature\_name" in the "aes"
+------------------------------------------------------------------------------------------
+
+``` r
+ggplot(diamonds, aes(x=price, color=cut)) + geom_density() + ggtitle("Each curve represents different cut value") + theme(plot.title = element_text(hjust = 0.5))
+```
+
+![](diamonds_ggplot_files/figure-markdown_github/unnamed-chunk-28-1.png) \#\# we can also divide put each curve into a separate plot.
+
+``` r
+ggplot(diamonds, aes(x=price)) + geom_density() + facet_wrap(~ cut) + ggtitle("Each plot represents different cut value") + theme(plot.title = element_text(hjust = 0.5))
+```
+
+![](diamonds_ggplot_files/figure-markdown_github/unnamed-chunk-29-1.png)
