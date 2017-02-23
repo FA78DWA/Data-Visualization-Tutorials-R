@@ -35,7 +35,8 @@ ggplot(diamonds, aes(x=carat, y=price, color=clarity, size=cut)) + geom_point() 
 
 ## We can add a smooth curve (additional layer) to show the general trend of the data. Don't forget, we do this by the (+) sign.
 ```{r}
-# the gray area around the curve is the confidence interval. To turn it off we can turn off the standard error option in geo_smooth.
+# the gray area around the curve is the confidence interval. 
+#To turn it off we can turn off the standard error option in geo_smooth(next figure).
 ggplot(diamonds, aes(x=carat, y=price)) + geom_point() + geom_smooth() 
 ```
 
@@ -46,6 +47,25 @@ ggplot(diamonds, aes(x=carat, y=price)) + geom_point() + geom_smooth(se=FALSE)
 
 ## We also can add the best fit line for that data, by changing the method that geom_smooth is using.
 ```{r}
-ggplot(diamonds, aes(x=carat, y=price)) + geom_point() + geom_smooth(se=FALSE, method=lm) 
+ggplot(diamonds, aes(x=carat, y=price)) + geom_point() + geom_smooth(se=FALSE, method="lm") 
+```
+
+## We can get a smooth curve that represnts the data with respect to a specific feature rather than a one curve for all the data. For example see the data curves wrt clarity. To do that, add "color = clarity" in the "aes()"
+```{r}
+ggplot(diamonds, aes(x=carat, y=price, color=clarity)) + geom_point() + geom_smooth(se=FALSE)
+```
+
+## We can only show the curves layer without the scattered points, by simply removing the "geom_point()" layer. 
+```{r}
+ggplot(diamonds, aes(x=carat, y=price, color=clarity)) + geom_smooth(se=FALSE)
+```
+
+## We can do the same using lines ....
+```{r}
+ggplot(diamonds, aes(x=carat, y=price, color=clarity)) + geom_point() + geom_smooth(se=FALSE, method = "lm")
+```
+
+```{r}
+ggplot(diamonds, aes(x=carat, y=price, color=clarity)) + geom_smooth(se=FALSE, method = "lm")
 ```
 
