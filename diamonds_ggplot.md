@@ -1,8 +1,41 @@
+-   [1- load the library, and the diamonds dataset](#load-the-library-and-the-diamonds-dataset)
+-   [2- Scatter Plots](#scatter-plots)
+    -   [A simple scatter plot](#a-simple-scatter-plot)
+    -   [Cahnge the axes labels, and add a title](#cahnge-the-axes-labels-and-add-a-title)
+    -   [Change the axes limit](#change-the-axes-limit)
+    -   [Usine log-scale](#usine-log-scale)
+    -   [Adding Additional Features To the Scatter Plot](#adding-additional-features-to-the-scatter-plot)
+        -   [Point color](#point-color)
+        -   [Point Shape](#point-shape)
+        -   [Point size](#point-size)
+    -   [General curve to represent the data](#general-curve-to-represent-the-data)
+        -   [Smooth Curve Representation](#smooth-curve-representation)
+        -   [Linear model Representation](#linear-model-representation)
+        -   [Divide the smooth curve wrt some feature](#divide-the-smooth-curve-wrt-some-feature)
+        -   [Show the curves only](#show-the-curves-only)
+        -   [Divide the linear models wrt some feature](#divide-the-linear-models-wrt-some-feature)
+        -   [Show the lines only](#show-the-lines-only)
+-   [3- Using Faceting with Scatter plots](#using-faceting-with-scatter-plots)
+    -   [We can divide it into smaller scatter plots in terms of "clarity" by adding the "facet\_wrap()" layer, and specifiny the feature that we want to use to divide the plot, in this case "~clarity".](#we-can-divide-it-into-smaller-scatter-plots-in-terms-of-clarity-by-adding-the-facet_wrap-layer-and-specifiny-the-feature-that-we-want-to-use-to-divide-the-plot-in-this-case-clarity.)
+    -   [We can also use scatter plot "color", to visualize an additional feature.](#we-can-also-use-scatter-plot-color-to-visualize-an-additional-feature.)
+    -   [What if we want to DIVIDE the big plot into smaller one using two features(clarity & color) instead of one(color only). Use facet\_grid(color~clarity). "color~clarity" means color explaned by clarity.](#what-if-we-want-to-divide-the-big-plot-into-smaller-one-using-two-featuresclarity-color-instead-of-onecolor-only.-use-facet_gridcolorclarity.-colorclarity-means-color-explaned-by-clarity.)
+    -   [We can also add the "cut" feature to this mega plot, do you know how....Yes, use color, or shape, or size for the scattered points. We will use "color".](#we-can-also-add-the-cut-feature-to-this-mega-plot-do-you-know-how....yes-use-color-or-shape-or-size-for-the-scattered-points.-we-will-use-color.)
+    -   [Now we want to add a title for this plot by Using a title layer "ggtitle()".](#now-we-want-to-add-a-title-for-this-plot-by-using-a-title-layer-ggtitle.)
+-   [4- Histograms](#histograms)
+    -   [We can plot a histogram for a single feature by adding "geom\_histogram()" layer.](#we-can-plot-a-histogram-for-a-single-feature-by-adding-geom_histogram-layer.)
+    -   [control the bin width using "binwidth" inside the "geom\_histogram"](#control-the-bin-width-using-binwidth-inside-the-geom_histogram)
+-   [5- Using Faceting with Histograms](#using-faceting-with-histograms)
+    -   [We can divide the big histogram the represents the whole data into smaller ones with respect to some feature, using "facet\_wrap(~ feature\_name)".](#we-can-divide-the-big-histogram-the-represents-the-whole-data-into-smaller-ones-with-respect-to-some-feature-using-facet_wrap-feature_name.)
+    -   [You can see in the previous figure that the "I1" histogram count is not clear (top left one) because we use the same scale in the y-axis. To change that we can add "free\_y" option into the "facet\_wrap()" layer.](#you-can-see-in-the-previous-figure-that-the-i1-histogram-count-is-not-clear-top-left-one-because-we-use-the-same-scale-in-the-y-axis.-to-change-that-we-can-add-free_y-option-into-the-facet_wrap-layer.)
+    -   [Another cool thing to do is to make a STACK HISTOGRAM. we can fill the bins of the histogram with different colors to represent the distribution of other feature.](#another-cool-thing-to-do-is-to-make-a-stack-histogram.-we-can-fill-the-bins-of-the-histogram-with-different-colors-to-represent-the-distribution-of-other-feature.)
+    -   [We can get the density curve of the distribution by using "geom\_density" layer instead of "geom\_histogram"](#we-can-get-the-density-curve-of-the-distribution-by-using-geom_density-layer-instead-of-geom_histogram)
+    -   [To compare multiple distributions wrt some feature, use "color=feature\_name" in the "aes"](#to-compare-multiple-distributions-wrt-some-feature-use-colorfeature_name-in-the-aes)
+    -   [we can also divide put each curve into a separate plot.](#we-can-also-divide-put-each-curve-into-a-separate-plot.)
+
 1- load the library, and the diamonds dataset
 =============================================
 
 Note that ggplot works in layers, meaning that we can plot the data and put different layers on top of the plot. This is done by using the (+) sign
----------------------------------------------------------------------------------------------------------------------------------------------------
 
 ``` r
 library(ggplot2)
@@ -20,11 +53,13 @@ head(diamonds)
     ## 5  0.31      Good     J     SI2  63.3    58   335  4.34  4.35  2.75
     ## 6  0.24 Very Good     J    VVS2  62.8    57   336  3.94  3.96  2.48
 
-2- Scatter Plot
-===============
+2- Scatter Plots
+================
 
-Simple scatter plot between the "carat" and the "price". The layer for scatterplot is "geom\_point()"
------------------------------------------------------------------------------------------------------
+A simple scatter plot
+---------------------
+
+Example: "carat" vs. "price". The layer for scatterplot is "geom\_point()"
 
 ``` r
 ggplot(diamonds, aes(x=carat, y=price)) + geom_point()
@@ -32,8 +67,10 @@ ggplot(diamonds, aes(x=carat, y=price)) + geom_point()
 
 ![](diamonds_ggplot_files/figure-markdown_github/unnamed-chunk-2-1.png)
 
+Cahnge the axes labels, and add a title
+---------------------------------------
+
 To change the default value of the x-label and add a title, we add more layers to the plot "xlab()" and "ggtitle()"
--------------------------------------------------------------------------------------------------------------------
 
 ``` r
 #to center the title use: theme(plot.title = element_text(hjust = 0.5))
@@ -42,8 +79,10 @@ ggplot(diamonds, aes(x=carat, y=price)) + geom_point() + ggtitle("My Scatter plo
 
 ![](diamonds_ggplot_files/figure-markdown_github/unnamed-chunk-3-1.png)
 
+Change the axes limit
+---------------------
+
 To add a limit for x-axis and y-axis use "xlim(), ylim()" layers. For exapmle, limit x(carat) between 0,2 and y(price) between 0, 10000$
-----------------------------------------------------------------------------------------------------------------------------------------
 
 ``` r
 #Note that this action can cause data loss in the plot
@@ -54,8 +93,10 @@ ggplot(diamonds, aes(x=carat, y=price)) + geom_point() + xlab("carat (weight)") 
 
 ![](diamonds_ggplot_files/figure-markdown_github/unnamed-chunk-4-1.png)
 
+Usine log-scale
+---------------
+
 To put one of the axes in log scale, for example the y-axis, use "scale\_y\_log10()" layer
-------------------------------------------------------------------------------------------
 
 ``` r
 ggplot(diamonds, aes(x=carat, y=price)) + geom_point() + scale_y_log10()
@@ -63,8 +104,12 @@ ggplot(diamonds, aes(x=carat, y=price)) + geom_point() + scale_y_log10()
 
 ![](diamonds_ggplot_files/figure-markdown_github/unnamed-chunk-5-1.png)
 
-Add additional feature in the plot by using color, for example add "clarity"
-----------------------------------------------------------------------------
+Adding Additional Features To the Scatter Plot
+----------------------------------------------
+
+### Point color
+
+To add additional feature in the plot use **color**, for example add "clarity" feature
 
 ``` r
 ggplot(diamonds, aes(x=carat, y=price, color=clarity)) + geom_point() + xlab("carat (weight)") 
@@ -72,8 +117,9 @@ ggplot(diamonds, aes(x=carat, y=price, color=clarity)) + geom_point() + xlab("ca
 
 ![](diamonds_ggplot_files/figure-markdown_github/unnamed-chunk-6-1.png)
 
-What about the "cut", can we add it too...Yes by the point shape
-----------------------------------------------------------------
+### Point Shape
+
+What about the "cut" feature, can we add it too...Yes by the point **shape**
 
 ``` r
 ggplot(diamonds, aes(x=carat, y=price, color=clarity, shape=cut)) + geom_point() + xlab("carat (weight)") 
@@ -81,8 +127,9 @@ ggplot(diamonds, aes(x=carat, y=price, color=clarity, shape=cut)) + geom_point()
 
 ![](diamonds_ggplot_files/figure-markdown_github/unnamed-chunk-7-1.png)
 
-Or the point size, but as we can see, its not a good idea for this dense data
------------------------------------------------------------------------------
+### Point size
+
+Or the point **size**, but as we can see, its not a good idea for this dense data
 
 ``` r
 ggplot(diamonds, aes(x=carat, y=price, color=clarity, size=cut)) + geom_point() + xlab("carat (weight)") 
@@ -92,8 +139,12 @@ ggplot(diamonds, aes(x=carat, y=price, color=clarity, size=cut)) + geom_point() 
 
 ![](diamonds_ggplot_files/figure-markdown_github/unnamed-chunk-8-1.png)
 
+General curve to represent the data
+-----------------------------------
+
+### Smooth Curve Representation
+
 We can add a smooth curve (additional layer) to show the general trend of the data. Don't forget, we do this by the (+) sign.
------------------------------------------------------------------------------------------------------------------------------
 
 ``` r
 # the gray area around the curve is the confidence interval. 
@@ -114,8 +165,9 @@ ggplot(diamonds, aes(x=carat, y=price)) + geom_point() + geom_smooth(se=FALSE)
 
 ![](diamonds_ggplot_files/figure-markdown_github/unnamed-chunk-10-1.png)
 
+### Linear model Representation
+
 We also can add the best fit line for that data, by changing the method that "geom\_smooth" is using.
------------------------------------------------------------------------------------------------------
 
 ``` r
 ggplot(diamonds, aes(x=carat, y=price)) + geom_point() + geom_smooth(se=FALSE, method="lm") 
@@ -123,8 +175,9 @@ ggplot(diamonds, aes(x=carat, y=price)) + geom_point() + geom_smooth(se=FALSE, m
 
 ![](diamonds_ggplot_files/figure-markdown_github/unnamed-chunk-11-1.png)
 
+### Divide the smooth curve wrt some feature
+
 We can get a smooth curve that represnts the data with respect to a specific feature rather than a one curve for all the data. For example, get the data curves wrt clarity. To do that, add "color = clarity" in the "aes()"
------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 ``` r
 ggplot(diamonds, aes(x=carat, y=price, color=clarity)) + geom_point() + geom_smooth(se=FALSE)
@@ -134,8 +187,9 @@ ggplot(diamonds, aes(x=carat, y=price, color=clarity)) + geom_point() + geom_smo
 
 ![](diamonds_ggplot_files/figure-markdown_github/unnamed-chunk-12-1.png)
 
+### Show the curves only
+
 We can only show the curves layer without the scattered points, by simply removing the "geom\_point()" layer.
--------------------------------------------------------------------------------------------------------------
 
 ``` r
 ggplot(diamonds, aes(x=carat, y=price, color=clarity)) + geom_smooth(se=FALSE)
@@ -145,14 +199,17 @@ ggplot(diamonds, aes(x=carat, y=price, color=clarity)) + geom_smooth(se=FALSE)
 
 ![](diamonds_ggplot_files/figure-markdown_github/unnamed-chunk-13-1.png)
 
+### Divide the linear models wrt some feature
+
 We can do the same using lines ....
------------------------------------
 
 ``` r
 ggplot(diamonds, aes(x=carat, y=price, color=clarity)) + geom_point() + geom_smooth(se=FALSE, method = "lm")
 ```
 
 ![](diamonds_ggplot_files/figure-markdown_github/unnamed-chunk-14-1.png)
+
+### Show the lines only
 
 ``` r
 ggplot(diamonds, aes(x=carat, y=price, color=clarity)) + geom_smooth(se=FALSE, method = "lm")
@@ -164,10 +221,9 @@ ggplot(diamonds, aes(x=carat, y=price, color=clarity)) + geom_smooth(se=FALSE, m
 ====================================
 
 Faceting is to divide the plot into smaller ones wrt some attribute/feature. Back to the original scatter plot.
----------------------------------------------------------------------------------------------------------------
 
 ``` r
-ggplot(diamonds, aes(x=carat, y=price, color = clarity)) + geom_point()
+ggplot(diamonds, aes(x=carat, y=price, color = clarity)) + geom_point() + ggtitle("The original Scatter plot") + theme(plot.title = element_text(hjust = 0.5))
 ```
 
 ![](diamonds_ggplot_files/figure-markdown_github/unnamed-chunk-16-1.png)

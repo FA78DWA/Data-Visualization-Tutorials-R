@@ -1,12 +1,14 @@
 ---
 title: "Practice the ggplot2 Library"
-output:
-  html_document:
-    toc: true
-    theme: united
 # output:
-#   md_document:
-#     variant: markdown_github
+#   html_document:
+#     toc: true
+#     theme: united
+output:
+  md_document:
+    variant: markdown_github
+    toc: true
+    toc_depth: 3
 ---
 # 1- load the library, and the diamonds dataset
 Note that ggplot works in layers, meaning that we can plot the data and put different layers on top of the plot. This is done by using the (+) sign
