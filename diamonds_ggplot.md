@@ -65,7 +65,8 @@ We can add a smooth curve (additional layer) to show the general trend of the da
 -----------------------------------------------------------------------------------------------------------------------------
 
 ``` r
-# the gray area around the curve is the confidence interval. To turn it off we can turn off the standard error option in geo_smooth.
+# the gray area around the curve is the confidence interval. 
+#To turn it off we can turn off the standard error option in geo_smooth(next figure).
 ggplot(diamonds, aes(x=carat, y=price)) + geom_point() + geom_smooth() 
 ```
 
@@ -86,7 +87,44 @@ We also can add the best fit line for that data, by changing the method that geo
 ---------------------------------------------------------------------------------------------------
 
 ``` r
-ggplot(diamonds, aes(x=carat, y=price)) + geom_point() + geom_smooth(se=FALSE, method=lm) 
+ggplot(diamonds, aes(x=carat, y=price)) + geom_point() + geom_smooth(se=FALSE, method="lm") 
 ```
 
 ![](diamonds_ggplot_files/figure-markdown_github/unnamed-chunk-8-1.png)
+
+We can get a smooth curve that represnts the data with respect to a specific feature rather than a one curve for all the data. For example see the data curves wrt clarity. To do that, add "color = clarity" in the "aes()"
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+``` r
+ggplot(diamonds, aes(x=carat, y=price, color=clarity)) + geom_point() + geom_smooth(se=FALSE)
+```
+
+    ## `geom_smooth()` using method = 'gam'
+
+![](diamonds_ggplot_files/figure-markdown_github/unnamed-chunk-9-1.png)
+
+We can only show the curves layer without the scattered points, by simply removing the "geom\_point()" layer.
+-------------------------------------------------------------------------------------------------------------
+
+``` r
+ggplot(diamonds, aes(x=carat, y=price, color=clarity)) + geom_smooth(se=FALSE)
+```
+
+    ## `geom_smooth()` using method = 'gam'
+
+![](diamonds_ggplot_files/figure-markdown_github/unnamed-chunk-10-1.png)
+
+We can do the same using lines ....
+-----------------------------------
+
+``` r
+ggplot(diamonds, aes(x=carat, y=price, color=clarity)) + geom_point() + geom_smooth(se=FALSE, method = "lm")
+```
+
+![](diamonds_ggplot_files/figure-markdown_github/unnamed-chunk-11-1.png)
+
+``` r
+ggplot(diamonds, aes(x=carat, y=price, color=clarity)) + geom_smooth(se=FALSE, method = "lm")
+```
+
+![](diamonds_ggplot_files/figure-markdown_github/unnamed-chunk-12-1.png)
