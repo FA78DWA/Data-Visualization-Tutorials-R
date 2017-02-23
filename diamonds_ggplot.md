@@ -30,7 +30,10 @@ Simple scatter plot between the "carat" and the "price". The layer for scatterpl
 ggplot(diamonds, aes(x=carat, y=price)) + geom_point()
 ```
 
-![](diamonds_ggplot_files/figure-markdown_github/unnamed-chunk-2-1.png) \#\# To change the default value of the x-label and add a title, we add more layers to the plot "xlab()" and "ggtitle()"
+![](diamonds_ggplot_files/figure-markdown_github/unnamed-chunk-2-1.png)
+
+To change the default value of the x-label and add a title, we add more layers to the plot "xlab()" and "ggtitle()"
+-------------------------------------------------------------------------------------------------------------------
 
 ``` r
 #to center the title use: theme(plot.title = element_text(hjust = 0.5))
@@ -39,10 +42,8 @@ ggplot(diamonds, aes(x=carat, y=price)) + geom_point() + ggtitle("My Scatter plo
 
 ![](diamonds_ggplot_files/figure-markdown_github/unnamed-chunk-3-1.png)
 
-To add a limit for x-axis and y-axis use "xlim(), ylim()" layers.
------------------------------------------------------------------
-
-### For exapmle, limit x(carat) between 0,2 and y(price) between 0, 10000$
+To add a limit for x-axis and y-axis use "xlim(), ylim()" layers. For exapmle, limit x(carat) between 0,2 and y(price) between 0, 10000$
+----------------------------------------------------------------------------------------------------------------------------------------
 
 ``` r
 #Note that this action can cause data loss in the plot
@@ -113,8 +114,8 @@ ggplot(diamonds, aes(x=carat, y=price)) + geom_point() + geom_smooth(se=FALSE)
 
 ![](diamonds_ggplot_files/figure-markdown_github/unnamed-chunk-10-1.png)
 
-We also can add the best fit line for that data, by changing the method that geom\_smooth is using.
----------------------------------------------------------------------------------------------------
+We also can add the best fit line for that data, by changing the method that "geom\_smooth" is using.
+-----------------------------------------------------------------------------------------------------
 
 ``` r
 ggplot(diamonds, aes(x=carat, y=price)) + geom_point() + geom_smooth(se=FALSE, method="lm") 
@@ -122,8 +123,8 @@ ggplot(diamonds, aes(x=carat, y=price)) + geom_point() + geom_smooth(se=FALSE, m
 
 ![](diamonds_ggplot_files/figure-markdown_github/unnamed-chunk-11-1.png)
 
-We can get a smooth curve that represnts the data with respect to a specific feature rather than a one curve for all the data. For example see the data curves wrt clarity. To do that, add "color = clarity" in the "aes()"
-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+We can get a smooth curve that represnts the data with respect to a specific feature rather than a one curve for all the data. For example, get the data curves wrt clarity. To do that, add "color = clarity" in the "aes()"
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 ``` r
 ggplot(diamonds, aes(x=carat, y=price, color=clarity)) + geom_point() + geom_smooth(se=FALSE)
@@ -171,8 +172,10 @@ ggplot(diamonds, aes(x=carat, y=price, color = clarity)) + geom_point()
 
 ![](diamonds_ggplot_files/figure-markdown_github/unnamed-chunk-16-1.png)
 
-We can divide it into smaller scatter plots in terms of "clarity" by adding the "facet\_wrap()" layer, and specifiny the feature that we want to use to divide the plot, in this case "~clarityS". Note that, clarity is a measurement of how clear the diamond is (I1 (worst), SI1, SI2, VS1, VS2, VVS1, VVS2, IF (best))
---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+We can divide it into smaller scatter plots in terms of "clarity" by adding the "facet\_wrap()" layer, and specifiny the feature that we want to use to divide the plot, in this case "~clarityS".
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Note that, clarity is a measurement of how clear the diamond is (I1 (worst), SI1, SI2, VS1, VS2, VVS1, VVS2, IF (best))
 
 ``` r
 ggplot(diamonds, aes(x=carat, y=price)) + geom_point() + facet_wrap(~clarity) 
