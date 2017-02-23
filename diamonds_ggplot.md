@@ -172,8 +172,8 @@ ggplot(diamonds, aes(x=carat, y=price, color = clarity)) + geom_point()
 
 ![](diamonds_ggplot_files/figure-markdown_github/unnamed-chunk-16-1.png)
 
-We can divide it into smaller scatter plots in terms of "clarity" by adding the "facet\_wrap()" layer, and specifiny the feature that we want to use to divide the plot, in this case "~clarityS".
---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+We can divide it into smaller scatter plots in terms of "clarity" by adding the "facet\_wrap()" layer, and specifiny the feature that we want to use to divide the plot, in this case "~clarity".
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 Note that, clarity is a measurement of how clear the diamond is (I1 (worst), SI1, SI2, VS1, VS2, VVS1, VVS2, IF (best))
 
@@ -183,8 +183,10 @@ ggplot(diamonds, aes(x=carat, y=price)) + geom_point() + facet_wrap(~clarity)
 
 ![](diamonds_ggplot_files/figure-markdown_github/unnamed-chunk-17-1.png)
 
-We can also use scatter plot "color", to visualize an additional feature. For example, the diamond color "color" , from J (worst) to D (best). Don't get confused between the two "color", one is the plot method, and the other is just a feature from the dataset.
---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+We can also use scatter plot "color", to visualize an additional feature.
+-------------------------------------------------------------------------
+
+For example, the diamond color "color" , takes values from J (worst) to D (best). Don't get confused between the two "color", one is the plot method, and the other is just a feature from the dataset.
 
 ``` r
 ggplot(diamonds, aes(x=carat, y=price, color=color)) + geom_point() + facet_wrap(~clarity)
@@ -201,8 +203,10 @@ ggplot(diamonds, aes(x=carat, y=price)) + geom_point() + facet_grid(color~clarit
 
 ![](diamonds_ggplot_files/figure-markdown_github/unnamed-chunk-19-1.png)
 
-We can also add the "cut" feature to this mega plot, do you know how....Yes, use color, or shape, or size for the scattered points. We will use "color". Note, this plot has "carat" on the x-axis, "price" on the y-axis, has 8\*7 subplots to specify the different "clarities" and "colors", also has a colored points to see the different "cuts". 5 Features in one plot. Amazing ha.
-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+We can also add the "cut" feature to this mega plot, do you know how....Yes, use color, or shape, or size for the scattered points. We will use "color".
+--------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Note, this plot has "carat" on the x-axis, "price" on the y-axis, has 8\*7 subplots to specify the different "clarities" and "colors", also has a colored points to see the different "cuts". 5 Features in one plot. Amazing ha.
 
 ``` r
 #to center the title use: theme(plot.title = element_text(hjust = 0.5))
@@ -247,8 +251,10 @@ ggplot(diamonds, aes(x=price)) + geom_histogram(binwidth = 200 ) + ggtitle("Thin
 5- Using Faceting with Histograms
 =================================
 
-We can divide the big histogram the represents the whole data into smaller ones with respect to some feature, using "facet\_wrap(~ feature\_name)". For example, we can divide the histogram above wrt "clarity"
-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+We can divide the big histogram the represents the whole data into smaller ones with respect to some feature, using "facet\_wrap(~ feature\_name)".
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+For example, we can divide the histogram above wrt "clarity"
 
 ``` r
 ggplot(diamonds, aes(x=price)) + geom_histogram() + facet_wrap(~ clarity) + ggtitle("Divided by the diamond clarity") + theme(plot.title = element_text(hjust = 0.5)) 
