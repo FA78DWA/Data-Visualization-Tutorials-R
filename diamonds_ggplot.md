@@ -1,8 +1,8 @@
 1- load the library, and the diamonds dataset
 =============================================
 
-Note that ggplot works in layers, meaning that we can plot the data and put different \#\# layers on top of the plot. This is done by using the (+) sign
---------------------------------------------------------------------------------------------------------------------------------------------------------
+Note that ggplot works in layers, meaning that we can plot the data and put different layers on top of the plot. This is done by using the (+) sign
+---------------------------------------------------------------------------------------------------------------------------------------------------
 
 ``` r
 library(ggplot2)
@@ -19,6 +19,39 @@ head(diamonds)
     ## 4  0.29   Premium     I     VS2  62.4    58   334  4.20  4.23  2.63
     ## 5  0.31      Good     J     SI2  63.3    58   335  4.34  4.35  2.75
     ## 6  0.24 Very Good     J    VVS2  62.8    57   336  3.94  3.96  2.48
+
+Diamonds dataset Format: A data frame with 53940 rows and 10 variables:
+-----------------------------------------------------------------------
+
+price: \#\#price in US dollars ($326-$18,823)
+---------------------------------------------
+
+carat: weight of the diamond (0.2-5.01)
+---------------------------------------
+
+cut: quality of the cut (Fair, Good, Very Good, Premium, Ideal)
+---------------------------------------------------------------
+
+color: diamond colour, from J (worst) to D (best)
+-------------------------------------------------
+
+clarity: a measurement of how clear the diamond is (I1 (worst), SI1, SI2, VS1, VS2, VVS1, VVS2, IF (best))
+----------------------------------------------------------------------------------------------------------
+
+x: length in mm (0-10.74)
+-------------------------
+
+y: width in mm (0-58.9)
+-----------------------
+
+z: depth in mm (0-31.8)
+-----------------------
+
+depth: total depth percentage = z / mean(x, y) = 2 \* z / (x + y) (43-79)
+-------------------------------------------------------------------------
+
+table: width of top of diamond relative to widest point (43-95)
+---------------------------------------------------------------
 
 2- Scatter Plot
 ===============
@@ -128,3 +161,24 @@ ggplot(diamonds, aes(x=carat, y=price, color=clarity)) + geom_smooth(se=FALSE, m
 ```
 
 ![](diamonds_ggplot_files/figure-markdown_github/unnamed-chunk-12-1.png)
+
+3- Using Faceting
+=================
+
+Faceting is to divide the plot into smaller ones wrt some attribute/feature. Back to the original scatter plot.
+---------------------------------------------------------------------------------------------------------------
+
+``` r
+ggplot(diamonds, aes(x=carat, y=price, color = clarity)) + geom_point()
+```
+
+![](diamonds_ggplot_files/figure-markdown_github/unnamed-chunk-13-1.png)
+
+We can divide it into smaller scatter plots in terms of "clarity" by adding the "facet\_wrap()" layer, and specifiny the feature that we want to use to divide the plot, in this case "~clarityS"
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+``` r
+ggplot(diamonds, aes(x=carat, y=price)) + geom_point() + facet_wrap(~clarity) 
+```
+
+![](diamonds_ggplot_files/figure-markdown_github/unnamed-chunk-14-1.png)
