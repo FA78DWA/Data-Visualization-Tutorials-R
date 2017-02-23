@@ -61,8 +61,8 @@ ggplot(diamonds, aes(x=carat, y=price, color=clarity, size=cut)) + geom_point() 
 
 ![](diamonds_ggplot_files/figure-markdown_github/unnamed-chunk-5-1.png)
 
-We can add a smooth curve (additional layer) to show the general trend of the data. \#\# Don't forget that we do this by the (+) sign.
---------------------------------------------------------------------------------------------------------------------------------------
+We can add a smooth curve (additional layer) to show the general trend of the data. Don't forget, we do this by the (+) sign.
+-----------------------------------------------------------------------------------------------------------------------------
 
 ``` r
 # the gray area around the curve is the confidence interval. To turn it off we can turn off the standard error option in geo_smooth.
