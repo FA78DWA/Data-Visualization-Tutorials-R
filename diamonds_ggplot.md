@@ -20,8 +20,7 @@ head(diamonds)
     ## 5  0.31      Good     J     SI2  63.3    58   335  4.34  4.35  2.75
     ## 6  0.24 Very Good     J    VVS2  62.8    57   336  3.94  3.96  2.48
 
-Diamonds dataset Format: A data frame with 53940 rows and 10 variables:
------------------------------------------------------------------------
+kable(head(diamonds\[,1:3\])) \#\# Diamonds dataset Format: A data frame with 53940 rows and 10 variables:
 
 price: \#\#price in US dollars ($326-$18,823)
 ---------------------------------------------
