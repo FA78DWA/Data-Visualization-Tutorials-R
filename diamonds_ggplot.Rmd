@@ -1,0 +1,27 @@
+---
+title: "Practice the ggplot2 Library"
+output:
+  md_document:
+    variant: markdown_github
+---
+#1- load the library, and load the diamonds dataset
+```{r}
+library(ggplot2)
+data("diamonds")
+head(diamonds)
+```
+
+# 2- Playing with different plot types
+## Simple scatter plot between the "carat" and the "price"
+```{r}
+ggplot(diamonds, aes(x=carat, y=price)) + geom_point() + ggtitle("Scatter plot") + xlab("carat (weight)") 
+```
+## Add additional feature in the plot by using color, for example add "clarity"
+```{r}
+ggplot(diamonds, aes(x=carat, y=price, color=clarity)) + geom_point() + ggtitle("Scatter plot") + xlab("carat (weight)") 
+```
+## What about the "cut", can we add it too...Yes by the point shape :D
+```{r}
+ggplot(diamonds, aes(x=carat, y=price, color=clarity, shape=cut)) + geom_point() + ggtitle("Scatter plot") + xlab("carat (weight)") 
+```
+
