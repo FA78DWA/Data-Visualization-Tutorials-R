@@ -1,5 +1,5 @@
-1- load the library, and load the diamonds dataset
-==================================================
+1- load the library, and the diamonds dataset
+=============================================
 
 ``` r
 library(ggplot2)
@@ -17,8 +17,8 @@ head(diamonds)
     ## 5  0.31      Good     J     SI2  63.3    58   335  4.34  4.35  2.75
     ## 6  0.24 Very Good     J    VVS2  62.8    57   336  3.94  3.96  2.48
 
-2- Playing with different plot types
-====================================
+2- Scatter Plot
+===============
 
 Simple scatter plot between the "carat" and the "price"
 -------------------------------------------------------
@@ -27,13 +27,19 @@ Simple scatter plot between the "carat" and the "price"
 ggplot(diamonds, aes(x=carat, y=price)) + geom_point() + ggtitle("Scatter plot") + xlab("carat (weight)") 
 ```
 
-![](diamonds_ggplot_files/figure-markdown_github/unnamed-chunk-2-1.png) \#\# Add additional feature in the plot by using color, for example add "clarity"
+![](diamonds_ggplot_files/figure-markdown_github/unnamed-chunk-2-1.png)
+
+Add additional feature in the plot by using color, for example add "clarity"
+----------------------------------------------------------------------------
 
 ``` r
 ggplot(diamonds, aes(x=carat, y=price, color=clarity)) + geom_point() + ggtitle("Scatter plot") + xlab("carat (weight)") 
 ```
 
-![](diamonds_ggplot_files/figure-markdown_github/unnamed-chunk-3-1.png) \#\# What about the "cut", can we add it too...Yes by the point shape :D
+![](diamonds_ggplot_files/figure-markdown_github/unnamed-chunk-3-1.png)
+
+What about the "cut", can we add it too...Yes by the point shape :D
+-------------------------------------------------------------------
 
 ``` r
 ggplot(diamonds, aes(x=carat, y=price, color=clarity, shape=cut)) + geom_point() + ggtitle("Scatter plot") + xlab("carat (weight)") 
